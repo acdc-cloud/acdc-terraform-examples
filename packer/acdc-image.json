@@ -1,0 +1,27 @@
+{
+  "builders": [{
+    "type": "openstack",
+    "identity_endpoint": "https://os-api.arcticcloud.com:5000/v3",
+    "tenant_name": "XXXXX", # Your Tenant name
+    "domain_name": "XXXXXX", # Your Domain name, same as Tenant name
+    "username": "root",
+    "password": "XXXX", # Your Password
+    "region": "RegionOne",
+    "ssh_username": "ubuntu",
+    "image_name": "ACDC example image",
+    "source_image_name": "Ubuntu 16.04 (xenial)",
+    "flavor": "g1.small",
+    "networks": ["XXXX"], # The ID of a network in openstack
+    "security_groups": ["packer"], # This needs to be created beforehand
+    "floating_ip_pool": "public_network"
+  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "sudo apt-get update",
+        "sudo apt-get install -y python"
+      ]
+    }
+  ]
+}
