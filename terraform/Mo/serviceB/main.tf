@@ -16,6 +16,6 @@ provider "openstack" {
 }
 
 data "openstack_images_image_v2" "ubuntu" {
-  name        = "Ubuntu 16.04"
+  name        = "Ubuntu 16.04 (xenial)"
   most_recent = true
 }
