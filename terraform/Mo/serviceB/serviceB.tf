@@ -39,3 +39,14 @@ resource "openstack_compute_floatingip_associate_v2" "serviceB_fip_attachment" {
   floating_ip = "${openstack_networking_floatingip_v2.serviceB_floatip_1.address}"
   instance_id = "${openstack_compute_instance_v2.serviceB.id}"
 }
+
+# #If a DNS record is desired. The DNS Zone needs to exist first 
+# resource "openstack_dns_recordset_v2" "recordset_myzone" {
+#   zone_id = "${openstack_dns_zone_v2.myzone.id}"
+#   name = "rs.example.com."
+#   description = "An example record set"
+#   ttl = 3600
+#   type = "A"
+#   records = ["${openstack_networking_floatingip_v2.serviceB_floatip_1.address}"]
+# }
+
