@@ -1,10 +1,9 @@
 resource "openstack_compute_instance_v2" "rancherMaster" {
   name            = "rancherMaster"
   flavor_name     = "g1.large_lowmem"
-  key_pair        = "<YOURKEYPAIR>"
+  key_pair        = "host-1"
   security_groups = ["acdc-secgroup-1",
     "${openstack_compute_secgroup_v2.rancherMaster_secgroup.name}",
-    "${data.openstack_networking_secgroup_v2.bastion.name}",
     "${openstack_compute_secgroup_v2.rancher_cattle.name}"
   ]
 
@@ -35,3 +34,14 @@ resource "openstack_blockstorage_volume_v1" "rancherMaster_root_volume" {
   availability_zone = "SV2"
 }
 
+resource "openstack_networking_floatingip_v2" "rancherMaster_floatip_1" {
+  pool = "public_network"
+}
+
+resource "openstack_compute_floatingip_associate_v2" "rancherMaster_fip_attachment" {
+  floating_ip = "${openstack_networking_floatingip_v2.rancherMaster_floatip_1.address}"
+  instance_id = "${openstack_compute_instance_v2.rancherMaster.id}"
+}
+output "IP for Rancher" {
+  value = "${openstack_networking_floatingip_v2.rancherMaster_floatip_1.address}"
+}

@@ -19,7 +19,3 @@ data "openstack_images_image_v2" "ubuntu" {
   name        = "Ubuntu 16.04 (xenial)"
   most_recent = true
 }
-
-data "openstack_networking_secgroup_v2" "bastion" {
-  name = "from-bastion-ssh"
-}
