@@ -4,7 +4,7 @@ data "template_file" "systemd_script" {
   vars {
     rancher_version = "stable"
     rancher_https_port    = "443"
-    rancher_http_port    = "80"
+    rancher_http_port    = "80"    
   }
 }
 
@@ -25,5 +25,9 @@ data "template_cloudinit_config" "config" {
     content_type = "text/x-shellscript"
     content      = "${file("${path.module}/scripts/userdata.tpl")}"
   }
-
+  part {
+    filename     = "rancher-node.pem"
+    content_type = "text/x-shellscript"
+    content      = "${openstack_compute_keypair_v2.rancher_node_keypair.private_key}"
+  }
 }
