@@ -1,7 +1,7 @@
 resource "openstack_compute_instance_v2" "rancherMaster" {
   name            = "rancherMaster"
   flavor_name     = "g1.large_lowmem"
-  key_pair        = "host-1"
+  key_pair        = "<YOUR KEYPAIR>"
   security_groups = ["acdc-secgroup-1",
     "${openstack_compute_secgroup_v2.rancherMaster_secgroup.name}",
     "${openstack_compute_secgroup_v2.rancher_cattle.name}"
