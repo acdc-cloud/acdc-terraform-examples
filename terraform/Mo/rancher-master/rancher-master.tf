@@ -68,7 +68,6 @@ resource "openstack_compute_floatingip_associate_v2" "rancherMaster_fip_attachme
 output "Rancher-master private key" {
   value = "${openstack_compute_keypair_v2.rancher_master_keypair.private_key}"
 }
-
 output "IP for Rancher" {
   value = "${openstack_networking_floatingip_v2.rancherMaster_floatip_1.address}"
 }
