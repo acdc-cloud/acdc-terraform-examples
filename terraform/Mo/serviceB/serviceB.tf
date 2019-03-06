@@ -7,7 +7,7 @@ resource "openstack_compute_instance_v2" "serviceB" {
   availability_zone = "SV2"
 
   block_device {
-    uuid                  = "${openstack_blockstorage_volume_v1.serviceB_root_volume.id}"
+    uuid                  = "${openstack_blockstorage_volume_v3.serviceB_root_volume.id}"
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
@@ -20,10 +20,10 @@ resource "openstack_compute_instance_v2" "serviceB" {
     name = "${module.region.regional_public_network_name}"
   }
 
-  depends_on = ["openstack_blockstorage_volume_v1.serviceB_root_volume"]
+  depends_on = ["openstack_blockstorage_volume_v3.serviceB_root_volume"]
 }
 
-resource "openstack_blockstorage_volume_v1" "serviceB_root_volume" {
+resource "openstack_blockstorage_volume_v3" "serviceB_root_volume" {
   name     = "serviceB-root-volume"
   size     = 30
   image_id = "${data.openstack_images_image_v2.ubuntu.id}"
