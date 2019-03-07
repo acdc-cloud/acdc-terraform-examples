@@ -1,13 +1,12 @@
 resource "openstack_compute_instance_v2" "rancherMaster" {
-  name            = "rancherMaster"
+  name            = "rancher-master"
   flavor_name     = "g1.large_lowmem"
-  key_pair        = "<YOUR KEYPAIR>"
+  key_pair        = "rancher-master-westman"
   security_groups = ["acdc-secgroup-1",
     "${openstack_compute_secgroup_v2.rancherMaster_secgroup.name}",
     "${openstack_compute_secgroup_v2.rancher_cattle.name}"
   ]
 
-  availability_zone = "SV2"
 
   block_device {
     uuid                  = "${openstack_blockstorage_volume_v3.rancherMaster_root_volume.id}"
@@ -29,8 +28,6 @@ resource "openstack_blockstorage_volume_v3" "rancherMaster_root_volume" {
   name     = "rancherMaster-root-volume"
   size     = 40
   image_id = "${data.openstack_images_image_v2.ubuntu.id}"
-
-  availability_zone = "SV2"
 }
 
 output "IP for Rancher" {
