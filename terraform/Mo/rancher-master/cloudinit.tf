@@ -4,7 +4,7 @@ data "template_file" "systemd_script" {
   vars {
     rancher_version = "stable"
     rancher_https_port    = "443"
-    rancher_http_port    = "80"    
+    rancher_http_port    = "80"
   }
 }
 
