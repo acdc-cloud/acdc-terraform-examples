@@ -15,11 +15,19 @@ resource "openstack_compute_secgroup_v2" "rancherMaster_secgroup" {
     ip_protocol = "tcp"
     cidr        = "0.0.0.0/0"
   }
+ 
 }
 
 resource "openstack_compute_secgroup_v2" "rancher_cattle" {
   name        = "rancher-cattle"
   description = "Communication between Rancher Host and Cattle"
+
+  rule {
+    from_port   = 22
+    to_port     = 22
+    ip_protocol = "tcp"
+    self = true
+  }
 
   rule {
     from_port   = 443

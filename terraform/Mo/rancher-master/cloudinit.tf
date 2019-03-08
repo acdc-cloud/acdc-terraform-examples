@@ -25,5 +25,4 @@ data "template_cloudinit_config" "config" {
     content_type = "text/x-shellscript"
     content      = "${file("${path.module}/scripts/userdata.tpl")}"
   }
-
 }

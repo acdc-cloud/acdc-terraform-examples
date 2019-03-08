@@ -1,5 +1,5 @@
 output "domain" {
-  value = "<YOURDOMAIN>"
+  value = "<DOMAIN NAME>"
 }
 
 output "username" {
