@@ -13,7 +13,10 @@
     "flavor": "g1.small",
     "networks": ["XXXX"], # The ID of a network in openstack
     "security_groups": ["packer"], # This needs to be created beforehand
-    "floating_ip_pool": "public_network"
+    "floating_ip_pool": "public_network",
+    "use_blockstorage_volume" : true,
+    "image_disk_format" : "raw"
+
   }],
   "provisioners": [
     {
