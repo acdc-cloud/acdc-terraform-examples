@@ -14,10 +14,11 @@ resource "openstack_dns_zone_v2" "myzone" {
 }
 
 resource "openstack_dns_recordset_v2" "recordset_myzone" {
-  zone_id     = "${openstack_dns_zone_v2.myzone.id}"
+  zone_id     = openstack_dns_zone_v2.myzone.id
   name        = "rs.example.com."
   description = "An example record set"
   ttl         = 3600
   type        = "A"
   records     = ["192.168.10.55"]
 }
+

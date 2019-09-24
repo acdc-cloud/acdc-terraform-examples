@@ -8,10 +8,10 @@ module "region" {
 
 # Configure the OpenStack Provider
 provider "openstack" {
-  domain_name = "${module.global.domain}"
-  user_name   = "${module.global.username}"
-  tenant_name = "${module.global.domain}"
-  auth_url    = "${module.global.auth_url}"
+  domain_name = module.global.domain
+  user_name   = module.global.username
+  tenant_name = module.global.domain
+  auth_url    = module.global.auth_url
   region      = "RegionOne"
 }
 
@@ -31,5 +31,4 @@ resource "openstack_objectstorage_container_v1" "demo_public_container" {
 
 # Although it is possible to manage objects in containers with terraform, it is very tedious
 # and usually better accomplished by using some other tools, like the swift and s3cmd tools,
-# as files in containers are not really considerd infrastructure
-
+# as files in containers are not really considered infrastructure
