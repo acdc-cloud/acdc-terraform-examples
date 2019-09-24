@@ -16,3 +16,4 @@ resource "openstack_compute_secgroup_v2" "serviceA_secgroup_1" {
     cidr        = "0.0.0.0/0"
   }
 }
+

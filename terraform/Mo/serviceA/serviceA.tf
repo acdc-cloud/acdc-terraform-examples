@@ -2,12 +2,12 @@ resource "openstack_compute_instance_v2" "serviceA" {
   name            = "serviceA"
   flavor_name     = "g1.small"
   key_pair        = "my-keypair"
-  security_groups = ["${openstack_compute_secgroup_v2.serviceA_secgroup_1.name}"]
+  security_groups = [openstack_compute_secgroup_v2.serviceA_secgroup_1.name]
 
   availability_zone = "SV1"
 
   block_device {
-    uuid                  = "${openstack_blockstorage_volume_v3.serviceA_root_volume.id}"
+    uuid                  = openstack_blockstorage_volume_v3.serviceA_root_volume.id
     source_type           = "volume"
     boot_index            = 0
     destination_type      = "volume"
@@ -15,16 +15,16 @@ resource "openstack_compute_instance_v2" "serviceA" {
   }
 
   network {
-    name = "${module.region.regional_public_network_name}"
+    name = module.region.regional_public_network_name
   }
 
-  depends_on = ["openstack_blockstorage_volume_v3.serviceA_root_volume"]
+  depends_on = [openstack_blockstorage_volume_v3.serviceA_root_volume]
 }
 
 resource "openstack_blockstorage_volume_v3" "serviceA_root_volume" {
   name     = "serviceA-root-volume"
   size     = 30
-  image_id = "${data.openstack_images_image_v2.ubuntu.id}"
+  image_id = data.openstack_images_image_v2.ubuntu.id
 
   availability_zone = "SV1"
 }
@@ -34,6 +34,7 @@ resource "openstack_networking_floatingip_v2" "serviceA_floatip_1" {
 }
 
 resource "openstack_compute_floatingip_associate_v2" "serviceA_fip_attachment" {
-  floating_ip = "${openstack_networking_floatingip_v2.serviceA_floatip_1.address}"
-  instance_id = "${openstack_compute_instance_v2.serviceA.id}"
+  floating_ip = openstack_networking_floatingip_v2.serviceA_floatip_1.address
+  instance_id = openstack_compute_instance_v2.serviceA.id
 }
+
