@@ -8,7 +8,15 @@ resource "openstack_networking_floatingip_v2" "floatip_1" {
 }
 
 resource "openstack_lb_listener_v2" "listener_1" {
+  # If you want to terminate HTTPS on the loadbalancer, set protocol to "TERMINATED_HTTPS" and protocol_port to 443.
+  # You will also have to set default_tls_container_ref to the href of a secret containing
+  # a base64 encoded pkcs12 encoded certificate bundle.
+  # openssl pkcs12 -export -inkey server.key -in server.crt -certfile ca-chain.crt -passout pass: -out server.p12
+  # openstack secret store --name='certificate_bundle' -t 'application/octet-stream' -e 'base64' --payload="$(base64 < server.p12)"
+  # openstack secret list
+
   protocol        = "HTTP"
+  #default_tls_container_ref = <secret_href>
   protocol_port   = 80
   loadbalancer_id = "${openstack_lb_loadbalancer_v2.lb_1.id}"
 }
