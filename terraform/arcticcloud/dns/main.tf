@@ -1,5 +1,5 @@
 module "global" {
-  source = "../global-vars"
+  source = "../../global-vars"
 }
 
 # Configure the OpenStack Provider
